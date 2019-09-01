@@ -6,18 +6,19 @@ import jdbc.ConnectionUtil;
 
 public class WaterPlant {
 	
+	
 	static String name;
 	static long mobno;
 	static String setPassword;
 	static Scanner scan =new Scanner(System.in);
 	
-	@SuppressWarnings("unused")
 	public static void main(String[] args) throws Exception{
-		Connection con = ConnectionUtil.getConnection();
 		WaterPlant.welcomePage();
 	}
 	
+
 	public static void welcomePage() throws Exception {
+		Connection con = ConnectionUtil.getConnection();
 		System.out.println("   Welcome to Revature Water Plant Services  ");
 		System.out.println("\n");
 		System.out.println("***********************************************************");
@@ -48,10 +49,10 @@ public class WaterPlant {
 				break;
 			case 2:
 				System.out.println("Enter your Login Name :");
-				String Name=scan.next();
+				String name=scan.next();
 				System.out.println("Enter your Password :");
 				String setPassword=scan.next();
-					Login.login(Name,setPassword);
+					Login.login(name,setPassword);
 					break;
 			case 3:
 				System.out.println("\nThank you for using our services!!!...");

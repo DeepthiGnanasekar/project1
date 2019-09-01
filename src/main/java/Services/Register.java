@@ -1,5 +1,4 @@
 package Services;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,12 +13,13 @@ public  class Register {
 	public static  void register(String name,long mob_no,String setPassword) throws Exception {
 		 Connection con = ConnectionUtil.getConnection();
 		try {
-			String sql = "insert into UserDetails(Name,MobileNumber,SetPassword) values (?,?,?)";
+			String sql = "insert into userInfo(Name,MobileNumber,SetPassword) values (?,?,?)";
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, name);
 			pst.setLong(2, mob_no);
 			pst.setString(3, setPassword);
-			pst.executeUpdate();
+			int rows=pst.executeUpdate();
+			System.out.println("no of rows inserted:"+rows);
 			System.out.println("\n Registered Successfully!!! ");
 			WaterPlant.welcomePage();
 		} catch (SQLException e) {

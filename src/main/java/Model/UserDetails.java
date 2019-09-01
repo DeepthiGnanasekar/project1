@@ -8,7 +8,7 @@ public class UserDetails {
        
        @Override
    	public String toString() {
-   		return "UserDetails [name=" + name + ", mob_no=" + mob_no + ", setPassword=" + setPassword+ "]";
+   		          return "UserDetails [name=" + name + ", mob_no=" + mob_no + ", setPassword=" + setPassword+ "]";
        }
        
            public String getName() {
@@ -17,10 +17,10 @@ public class UserDetails {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public long getMob_no() {
-		return mob_no;
+	public long getMobilenumber() {
+		        return mob_no;
 	}
-	public void setMob_no(long mob_no) {
+	public void getMobilenumber(long mob_no) {
 		this.mob_no = mob_no;
 	}
 	public String getSetPassword() {
