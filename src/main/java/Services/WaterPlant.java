@@ -1,25 +1,22 @@
 package Services;
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
-
-import jdbc.ConnectionUtil;
-
 public class WaterPlant {
 	
 	
 	static String name;
-	static long mobno;
+	static long mob_no;
 	static String setPassword;
 	static Scanner scan =new Scanner(System.in);
 	
 	public static void main(String[] args) throws Exception{
+		List.admin();
 		WaterPlant.welcomePage();
 	}
 	
 
-	public static void welcomePage() throws Exception {
-		Connection con = ConnectionUtil.getConnection();
-		System.out.println("   Welcome to Revature Water Plant Services  ");
+	 static void welcomePage() {
+		System.out.println("\nWelcome to Revature Water Plant Services  ");
 		System.out.println("\n");
 		System.out.println("***********************************************************");
 		System.out.println("   |   Register(1)  |  |   Login(2)  |  |   Exit(3)  |");
@@ -34,9 +31,9 @@ public class WaterPlant {
 				System.out.println("Enter your name :");
 		        name = scan.next();
 		        System.out.println("Enter your MobileNumber:");
-				long mob_no = scan.nextLong();
+			    mob_no = scan.nextLong();
 				System.out.println("Set Password :");
-				String setPassword = scan.next();
+			  setPassword = scan.next();
 				System.out.println("Enter Submit/Cancel");
 				String Submit = scan.next();
 				if(Submit.equals("Submit")) {
@@ -49,10 +46,14 @@ public class WaterPlant {
 				break;
 			case 2:
 				System.out.println("Enter your Login Name :");
-				String name=scan.next();
+			    name=scan.next();
 				System.out.println("Enter your Password :");
-				String setPassword=scan.next();
+			    setPassword=scan.next();
+				try {
 					Login.login(name,setPassword);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 					break;
 			case 3:
 				System.out.println("\nThank you for using our services!!!...");

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionUtil {
 	public static Connection getConnection()  {
 		String driverClassName = "com.mysql.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/waterPlant_db";
+		String url = "jdbc:mysql://localhost:3306/waterStock_db";
 		String username = "root";
 		String password = "root";
 
