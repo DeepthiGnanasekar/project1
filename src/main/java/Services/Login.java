@@ -13,7 +13,7 @@ static Scanner scan =new Scanner(System.in);
 		 TestUserDao userdao=new UserDao();
 			details=userdao.findByName(name,setPassword);
 		 String Name=details.getName();
-		 String SetPassword=details.getSetPassword();
+		 String SetPassword=details.getSet_Password();
 			if(name.equals(Name) && setPassword.equals(SetPassword)) {
 				System.out.println("Logged_IN Succesfully!!! ");
 				System.out.println("\n Welcome : "+details.getName());

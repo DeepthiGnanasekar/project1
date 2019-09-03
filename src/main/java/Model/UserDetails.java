@@ -24,16 +24,16 @@ public class UserDetails {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public long getMobilenumber() {
+	public long getMobile_number() {
 		        return mob_no;
 	}
-	public void setMobilenumber(long mob_no) {
+	public void setMobile_number(long mob_no) {
 		this.mob_no = mob_no;
 	}
-	public String getSetPassword() {
+	public String getSet_Password() {
 		return setPassword;
 	}
-	public void setSetPassword(String setPassword) {
+	public void setSet_Password(String setPassword) {
 		this.setPassword = setPassword;
 	}
 	

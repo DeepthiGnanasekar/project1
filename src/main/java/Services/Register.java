@@ -13,7 +13,7 @@ public  class Register {
 	public static  void register(String name,long mob_no,String setPassword) throws Exception {
 		 Connection con = ConnectionUtil.getConnection();
 		try {
-			String sql = "insert into userInfo(Name,MobileNumber,SetPassword) values (?,?,?)";
+			String sql = "insert into userInfo(Name,Mobile_Number,Set_Password) values (?,?,?)";
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, name);
 			pst.setLong(2, mob_no);

@@ -1,6 +1,10 @@
 package Services;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import Dao.TestUserDao;
+import Dao.UserDao;
+import Model.UserDetails;
 public class WaterPlant {
 	
 	
@@ -37,7 +41,14 @@ public class WaterPlant {
 				System.out.println("Enter Submit/Cancel");
 				String Submit = scan.next();
 				if(Submit.equals("Submit")) {
-				Register.register(name,mob_no,setPassword);}
+					 UserDetails details = new UserDetails();
+					 TestUserDao userdao=new UserDao();
+					 details.setName(name);
+					 details.setMobile_number(mob_no);
+					 details.setSet_Password(setPassword);
+					 userdao.register(details);
+					 System.out.println("\n Registered Successfully!!! ");
+						WaterPlant.welcomePage();}
 				if(Submit.equals("Cancel")) {
 					welcomePage();}
 				} catch (Exception e1) {

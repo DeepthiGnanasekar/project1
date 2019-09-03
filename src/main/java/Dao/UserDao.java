@@ -10,9 +10,23 @@ import jdbc.ConnectionUtil;
 
 public class UserDao implements TestUserDao{
 	Connection con = ConnectionUtil.getConnection();
+	 public void register(UserDetails user) {
+		try {
+			String sql = "insert into user_Info(Name,Mobile_Number,Set_Password) values (?,?,?)";
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, user.getName());
+			pst.setLong(2, user.getMobile_number());
+			pst.setString(3, user.getSet_Password());
+			int rows=pst.executeUpdate();
+			System.out.println("no of rows inserted:"+rows);
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("This account is already existing!!!...Please enter a valid details..." );
+		}
+	 }
 	public UserDetails findByName(String name, String setPassword) throws SQLException{
 		
-		String sql = "select ID, Name, MobileNumber,SetPassword from userInfo where Name = ? and SetPassword = ?";
+		String sql = "select ID, Name, Mobile_Number,Set_Password from user_Info where Name = ? and Set_Password = ?";
 		PreparedStatement pst = con.prepareStatement(sql);
 		pst.setString(1, name);
 		pst.setString(2, setPassword);
@@ -24,7 +38,7 @@ public class UserDao implements TestUserDao{
 		return details;
 	}
 	public UserDetails findByID(int id) throws SQLException{
-		String sql = "select ID, Name, MobileNumber,SetPassword from userInfo where ID = ?";
+		String sql = "select ID, Name, Mobile_Number,Set_Password from user_Info where ID = ?";
 		PreparedStatement pst = con.prepareStatement(sql);
 		pst.setInt(1, id);
 		ResultSet rs1 = pst.executeQuery();
@@ -37,25 +51,25 @@ public class UserDao implements TestUserDao{
 	private UserDetails toRow(ResultSet rs) throws SQLException {
         int id = rs.getInt("ID");
 		String name = rs.getString("Name");
-		long mob_no = rs.getLong("MobileNumber");
-		String setPassword = rs.getString("SetPassword");
+		long mob_no = rs.getLong("Mobile_Number");
+		String setPassword = rs.getString("Set_Password");
 		UserDetails user = new UserDetails();
 		user.setID(id);
 		user.setName(name);
-		user.setMobilenumber(mob_no);
-		user.setSetPassword(setPassword);
+		user.setMobile_number(mob_no);
+		user.setSet_Password(setPassword);
 		return user;
 	}
 	private UserDetails toRow1(ResultSet rs1) throws SQLException {
         int id = rs1.getInt("ID");
 		String name = rs1.getString("Name");
-		long mob_no = rs1.getLong("MobileNumber");
-		String setPassword = rs1.getString("SetPassword");
+		long mob_no = rs1.getLong("Mobile_Number");
+		String setPassword = rs1.getString("Set_Password");
 		UserDetails user = new UserDetails();
 		user.setID(id);
 		user.setName(name);
-		user.setMobilenumber(mob_no);
-		user.setSetPassword(setPassword);
+		user.setMobile_number(mob_no);
+		user.setSet_Password(setPassword);
 		return user;
 	}
 	
