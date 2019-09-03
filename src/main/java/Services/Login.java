@@ -16,8 +16,10 @@ static Scanner scan =new Scanner(System.in);
 		 String SetPassword=details.getSetPassword();
 			if(name.equals(Name) && setPassword.equals(SetPassword)) {
 				System.out.println("Logged_IN Succesfully!!! ");
-				System.out.println("\n Welcome : "+details.getName());	
-				List.order();
+				System.out.println("\n Welcome : "+details.getName());
+				UserDetails obj = new UserDetails();
+				obj.setID(details.getID());
+				List.order(obj);
 			}	
 	}
 	

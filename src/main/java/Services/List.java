@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Dao.TestUserDao;
-import Dao.UserDao;
 import Model.UserDetails;
 import jdbc.ConnectionUtil;
 
@@ -25,9 +23,9 @@ static void admin() {
 	{
 		if((aname.equals("Admin")) &&(apin.equals("a@123"))) {
 			System.out.println("Welcome Admin!!!");
-			System.out.println("\nSet the Availability List of Cans : ");
+			System.out.println("\nSet the Availability Quantity of Cans : ");
 			Set_List = scan .nextDouble();
-				System.out.println("Set the Availability List of Cans : "+Set_List+" "+"Units");
+				System.out.println("Set the Availability Quantity of Cans : "+Set_List+" "+"Units");
 				try {
 					String sql = "insert into availabilityList(Set_List) values (?)";
 					PreparedStatement pst = con.prepareStatement(sql);
@@ -42,7 +40,7 @@ static void admin() {
 	}catch (Exception e) {
 		throw new RuntimeException("Invalid Crendentials!!!...Please enter a valid admin details..." );	}
 }
- static void order()   
+ static void order(UserDetails det)   
 {System.out.println("******************************************************************************");
 	System.out.println("\nAvailablity List of Quantity of WaterCans : "+Set_List+" "+"Units");
  System.out.println("\n******************************************************************************");
@@ -63,6 +61,8 @@ static void admin() {
 			}
 		System.out.println("Your Order has been Confirmed... Thankyou for Ordering with us!!!");
 		System.out.println(" your WaterCan unique code is : "+iD);
+		System.out.println("And your reference id is : "+det.getID());
+
 		Set_List = Set_List-quantyList;
 		System.out.println("Availablity List of Quantity of WaterCans : "+(Set_List)+"Units");
 		String sql1 = "update availabilityList set Set_List=?";
@@ -74,18 +74,14 @@ static void admin() {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			   UserDetails did = new UserDetails();
-				 TestUserDao userdao=new UserDao();
-				 did = userdao.findByID(iD);
-					int id=did.getID();
-					System.out.println("And your reference id is : "+id);
-				} catch (SQLException e) {
-					e.printStackTrace();}
 		WaterPlant.welcomePage();
-	}	if(Yes==2){ List.order();}}
+		
+	}	if(Yes==2){ WaterPlant.welcomePage();
+		}}
+	
 	if(quantyList > 100) {System.out.println("Please set the order between 0 to 100...!!!");
-	List.order();}
+	WaterPlant.welcomePage();
+	}
 	}
 }
 
