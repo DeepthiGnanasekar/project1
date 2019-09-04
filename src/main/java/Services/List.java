@@ -1,12 +1,16 @@
 package Services;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Scanner;
+
+import Dao.ListDao;
+import Dao.TestListDao;
+import Model.ListDetails;
 import Model.UserDetails;
 import jdbc.ConnectionUtil;
 
 public class List {
+	static ListDetails list = new ListDetails();
+	static TestListDao listdao = new ListDao();
 static	Connection con = ConnectionUtil.getConnection();
 	static Scanner scan = new Scanner(System.in);
 	static double reservedOrderList;
@@ -31,14 +35,8 @@ static void admin() {
 			System.out.println("\nSet the Availability Quantity of Cans : ");
 			Set_List = scan .nextDouble();
 				System.out.println("Set the Availability Quantity of Cans : "+Set_List+" "+"Units");
-				try {
-					String sql = "insert into availability_List(Set_List) values (?)";
-					PreparedStatement pst = con.prepareStatement(sql);
-					pst.setDouble(1, Set_List);
-					int rows=pst.executeUpdate();
-					System.out.println("no of rows inserted:"+rows);
-				} catch (SQLException e) {
-					throw new RuntimeException("This account is already existing!!!...Please enter a valid details..." );}}
+				list.setSet_List(Set_List);
+				listdao.admin(list);}
 	}catch (Exception e) {
 		throw new RuntimeException("Invalid Crendentials!!!...Please enter a valid admin details..." );	}
 }
@@ -56,36 +54,18 @@ if(order == 1) {
 	System.out.println("Are you sure you want to order only this much quantity of Water Cans : "+quantyList+" "+"Units"+" "+" then select Yes(1) / No(2)");
 	int Yes = scan.nextInt();
 	if(Yes==1) {	
-			try {
-				String sql = "insert quantity_List(Quantity_List) values(?)";
-				PreparedStatement pst = con.prepareStatement(sql);
-				pst.setDouble(1, quantyList);
-				int rows=pst.executeUpdate();
-				System.out.println("no of rows inserted:"+rows);
-			} catch (SQLException e) {
-				e.printStackTrace();}	
+		list.setQuantyList(quantyList);
+		listdao.quantity(list);
 		System.out.println("Your Order has been Confirmed... Thankyou for Ordering with us!!!");
 		System.out.println(" your WaterCan unique code is : "+iD);
 		System.out.println("And your reference id is : "+det.getID());
 		status = "Ordered";
-		try {
-			String sql = "update quantity_List set STATUS=?";
-			PreparedStatement pst = con.prepareStatement(sql);
-			pst.setString(1, status);
-			int rows=pst.executeUpdate();
-			System.out.println("no of rows inserted:"+rows);
-		} catch (SQLException e) {
-			e.printStackTrace();}
+		list.setStatus(status);
+		listdao.status(list);
 		Set_List = Set_List-quantyList;
 		System.out.println("Availablity List of Quantity of WaterCans : "+(Set_List)+"Units");
-		String sql1 = "update availability_List set Set_List=?";
-		PreparedStatement pst2;
-		try {
-			pst2 = con.prepareStatement(sql1);
-			pst2.setDouble(1, Set_List);
-			pst2.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();}	
+		list.setSet_List(Set_List);
+		listdao.admin1(list);	
 		WaterPlant.welcomePage();}
 	if(Yes==2){ WaterPlant.welcomePage();}}
 	if((quantyList <= 0) && (quantyList > 100)) {System.out.println("Please set the order between 0 to 100...!!!");
@@ -101,36 +81,18 @@ if(order==2) {
 	System.out.println("Are you sure you want to order only this much quantity of Water Cans : "+reservedList+" "+"Units"+" "+" then select Yes(1) / No(2)");
 	int Yes = scan.nextInt();
 	if(Yes==1) {	
-			try {
-				String sql = "insert quantity_List(Reserved_List) values (?)";
-				PreparedStatement pst = con.prepareStatement(sql);
-				pst.setDouble(1, reservedList);
-				int rows=pst.executeUpdate();
-				System.out.println("no of rows inserted:"+rows);
-			} catch (SQLException e) {
-				e.printStackTrace();}
+		list.setReservedList(reservedList);
+		listdao.reserve(list);
 		System.out.println("Your reservation has been Confirmed...!!!");
 		System.out.println(" your WaterCan unique code is : "+iD);
 		System.out.println("And your reference id is : "+det.getID());
 		status = "Reserved...Order pending";
-		try {
-			String sql = "update quantity_List set STATUS=?";
-			PreparedStatement pst = con.prepareStatement(sql);
-			pst.setString(1, status);
-			int rows=pst.executeUpdate();
-			System.out.println("no of rows inserted:"+rows);
-		} catch (SQLException e) {
-			e.printStackTrace();}
+		list.setStatus(status);
+		listdao.status(list);
 		Set_List = Set_List-reservedList;
 		System.out.println("Availablity List of Quantity of WaterCans : "+(Set_List)+"Units");
-		String sql1 = "update availability_List set Set_List=?";
-		PreparedStatement pst2;
-		try {
-			pst2 = con.prepareStatement(sql1);
-			pst2.setDouble(1, Set_List);
-			pst2.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();}
+		list.setSet_List(Set_List);
+		listdao.admin1(list);
 		WaterPlant.welcomePage();}
 	if(Yes==2){ WaterPlant.welcomePage();}}
 	if(reservedList > 100) {System.out.println("Please set the reserve the quantities between 0 to 100...!!!");}
@@ -146,37 +108,18 @@ ref_id = scan.nextInt();
  choice = scan.nextInt();
  if(choice == 1) {
 	 reservedOrderList = reservedList;
-	 try {
-			String sql = "update quantity_List set Reserved_Order=?";
-			PreparedStatement pst = con.prepareStatement(sql);
-			pst.setDouble(1, reservedOrderList);
-			pst.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	 list.setReservedOrder(reservedOrderList);
+		listdao.reserve1(list);
 	 reservedList = 0;
-	 String sql1 = "update quantity_List set Reserved_List=?";
-		PreparedStatement pst2;
-		try {
-			pst2 = con.prepareStatement(sql1);
-			pst2.setDouble(1, reservedList);
-			pst2.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();}
+	 list.setReservedList(reservedList);
+		listdao.reserveu(list);
 		System.out.println("Your Order has been Confirmed... Thankyou for Ordering with us!!!");
 		System.out.println(" your WaterCan unique code is : "+iD);
 		System.out.println("And your reference_order id is : "+det.getID());
 		System.out.println("Availablity List of Quantity of WaterCans : "+(Set_List)+"Units");
-
 		status = "ordered";
-		 String sql2 = "update quantity_List set STATUS=?";
-			PreparedStatement pst3;
-			try {
-				pst3 = con.prepareStatement(sql2);
-				pst3.setString(1, status);
-				pst3.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();}
+		list.setStatus(status);
+		listdao.status(list);
 			WaterPlant.welcomePage();}
  if(choice == 2) {WaterPlant.welcomePage();}
 if(choice == 3) {System.out.println("Set the order quantity of Cans : ");
@@ -185,46 +128,22 @@ if((quanty >= 50)&&(quanty <= 100)) {
 	System.out.println("Are you sure you want to modify your order for only this much quantity of Water Cans : "+quanty+" "+"Units"+" "+" then select Yes(1) / No(2)");
 	int Yes = scan.nextInt();
 	if(Yes==1) {	
-			try {
-				String sql = "update quantity_List set Reserved_Order=?";
-				PreparedStatement pst = con.prepareStatement(sql);
-				pst.setDouble(1, quanty);
-				int rows=pst.executeUpdate();
-				System.out.println("no of rows inserted:"+rows);
-			} catch (SQLException e) {
-				e.printStackTrace();}
+		list.setReservedOrder(quanty);
+		listdao.reserve1(list);
 		System.out.println("Your reservedOrder has been Confirmed...!!!");
 		System.out.println(" your WaterCan unique code is : "+iD);
 		System.out.println("And your reference id is : "+det.getID());
 		 reservedList = 0;
-		 String sql1 = "update quantity_List set Reserved_List=?";
-			PreparedStatement pst2;
-			try {
-				pst2 = con.prepareStatement(sql1);
-				pst2.setDouble(1, reservedList);
-				pst2.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();}
+		 list.setReservedList(reservedList);
+			listdao.reserveu(list);
 		status = "ordered";
-		 String sql2 = "update quantity_List set STATUS=?";
-			PreparedStatement pst3;
-			try {
-				pst3 = con.prepareStatement(sql2);
-				pst3.setString(1, status);
-				pst3.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();}
+		list.setStatus(status);
+		listdao.status(list);
 			quanty=reservedList-quanty;
 		Set_List = Set_List+quanty;
 		System.out.println("Availablity List of Quantity of WaterCans : "+(Set_List)+"Units");
-		String sql3 = "update availability_List set Set_List=?";
-		PreparedStatement pst4;
-		try {
-			pst4 = con.prepareStatement(sql3);
-			pst4.setDouble(1, Set_List);
-			pst4.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();}
+		list.setSet_List(Set_List);
+		listdao.admin1(list);
 		WaterPlant.welcomePage();}
 	if(Yes == 2) {WaterPlant.welcomePage();}}
 	if((quanty < 50)&&(quanty > 100)) {
