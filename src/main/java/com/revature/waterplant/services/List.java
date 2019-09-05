@@ -1,4 +1,4 @@
-package Services;
+package com.revature.waterplant.services;
 import java.sql.Connection;
 import java.util.Scanner;
 
@@ -6,13 +6,14 @@ import com.revature.waterplant.dao.ListDao;
 import com.revature.waterplant.dao.TestListDao;
 import com.revature.waterplant.model.ListDetails;
 import com.revature.waterplant.model.UserDetails;
-import com.revature.waterplantjdbc.ConnectionUtil;
+import com.revature.waterplant.jdbc.ConnectionUtil;
 
 public class List {
 	static ListDetails list = new ListDetails();
 	static TestListDao listdao = new ListDao();
-static	Connection con = ConnectionUtil.getConnection();
+    static	Connection con = ConnectionUtil.getConnection();
 	static Scanner scan = new Scanner(System.in);
+	static int stock;
 	static double reservedOrderList;
 	static String status;
 	static int order;
@@ -32,11 +33,18 @@ static void admin() {
 	{
 		if((aname.equals("Admin")) &&(apin.equals("a@123"))) {
 			System.out.println("Welcome Admin!!!");
+			System.out.println("Select View_Stock(1)/cancel(2)");
+			 stock=scan.nextInt();
+			 if(stock==1) {
+				double Set=500;
+            System.out.println("Avalibility stocks : "+Set);	
 			System.out.println("\nSet the Availability Quantity of Cans : ");
 			Set_List = scan .nextDouble();
 				System.out.println("Set the Availability Quantity of Cans : "+Set_List+" "+"Units");
 				list.setSet_List(Set_List);
-				listdao.admin(list);}
+				listdao.admin1(list);
+				}
+		if(stock==2) {List.admin();}}
 	}catch (Exception e) {
 		throw new RuntimeException("Invalid Crendentials!!!...Please enter a valid admin details..." );	}
 }

@@ -1,4 +1,4 @@
-package com.revature.waterplant.Services;
+package com.revature.waterplant.services;
 import java.sql.SQLException;
 import java.util.Scanner;
 

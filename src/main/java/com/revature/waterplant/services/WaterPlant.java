@@ -1,13 +1,10 @@
-package com.revature.waterplant.Services;
+package com.revature.waterplant.services;
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import com.revature.waterplant.dao.TestUserDao;
 import com.revature.waterplant.dao.UserDao;
 import com.revature.waterplant.model.UserDetails;
 public class WaterPlant {
-	
-	
 	static String name;
 	static long mob_no;
 	static String setPassword;
@@ -17,7 +14,6 @@ public class WaterPlant {
 		List.admin();
 		WaterPlant.welcomePage();
 	}
-	
 
 	 static void welcomePage() {
 		System.out.println("\nWelcome to Revature Water Plant Services  ");
