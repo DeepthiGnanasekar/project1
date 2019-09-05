@@ -1,11 +1,11 @@
-package Dao;
+package com.revature.waterplant.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import Model.ListDetails;
-import jdbc.ConnectionUtil;
+import com.revature.waterplant.model.ListDetails;
+import com.revature.waterplant.jdbc.ConnectionUtil;
 
 public class ListDao implements TestListDao {
 	Connection con = ConnectionUtil.getConnection();

@@ -2,11 +2,11 @@ package Services;
 import java.sql.Connection;
 import java.util.Scanner;
 
-import Dao.ListDao;
-import Dao.TestListDao;
-import Model.ListDetails;
-import Model.UserDetails;
-import jdbc.ConnectionUtil;
+import com.revature.waterplant.dao.ListDao;
+import com.revature.waterplant.dao.TestListDao;
+import com.revature.waterplant.model.ListDetails;
+import com.revature.waterplant.model.UserDetails;
+import com.revature.waterplantjdbc.ConnectionUtil;
 
 public class List {
 	static ListDetails list = new ListDetails();

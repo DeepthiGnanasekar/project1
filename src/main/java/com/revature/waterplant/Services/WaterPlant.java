@@ -1,10 +1,10 @@
-package Services;
+package com.revature.waterplant.Services;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Dao.TestUserDao;
-import Dao.UserDao;
-import Model.UserDetails;
+import com.revature.waterplant.dao.TestUserDao;
+import com.revature.waterplant.dao.UserDao;
+import com.revature.waterplant.model.UserDetails;
 public class WaterPlant {
 	
 	

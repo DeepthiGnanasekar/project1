@@ -1,6 +1,6 @@
-package Dao;
+package com.revature.waterplant.dao;
 
-import Model.ListDetails;
+import com.revature.waterplant.model.ListDetails;
 
 public interface  TestListDao {
 	void admin(ListDetails list);

@@ -1,4 +1,4 @@
-package jdbc;
+package com.revature.waterplant.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

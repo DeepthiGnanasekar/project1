@@ -1,4 +1,4 @@
-package Model;
+package com.revature.waterplant.model;
 
 public class UserDetails {
 	   private int id;

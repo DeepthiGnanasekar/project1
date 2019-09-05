@@ -1,12 +1,10 @@
-package Dao;
-
+package com.revature.waterplant.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import Model.UserDetails;
-import jdbc.ConnectionUtil;
+import com.revature.waterplant.model.UserDetails;
+import com.revature.waterplant.jdbc.ConnectionUtil;
 
 public class UserDao implements TestUserDao{
 	Connection con = ConnectionUtil.getConnection();
