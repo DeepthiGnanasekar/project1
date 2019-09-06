@@ -1,19 +1,23 @@
 package com.revature.waterplant.dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.revature.waterplant.model.UserDetails;
+import com.revature.waterplant.exception.DBException;
 import com.revature.waterplant.jdbc.ConnectionUtil;
 
 public class UserDao implements UserDaoImp {
 	Connection con = ConnectionUtil.getConnection();
-
-	public void register(UserDetails user) {
+	 PreparedStatement pst = null;
+	
+	
+	public void register(UserDetails user) throws  SQLException, DBException {
+		
 		try {
+			
 			String sql = "insert into user_Info(Name,Mobile_Number,Set_Password) values (?,?,?)";
-			PreparedStatement pst = con.prepareStatement(sql);
+			 pst = con.prepareStatement(sql);
 			pst.setString(1, user.getName());
 			pst.setLong(2, user.getMobile_number());
 			pst.setString(3, user.getSet_Password());
@@ -21,44 +25,64 @@ public class UserDao implements UserDaoImp {
 			System.out.println("no of rows inserted:" + rows);
 
 		} catch (SQLException e) {
-			throw new RuntimeException("This account is already existing!!!...Please enter a valid details...");
+			throw new DBException("This account is already existing!!!...Please enter a valid details...");
+		}
+		finally
+		{
+		pst.close();	
 		}
 	}
 
-	public UserDetails findByName(String name, String setPassword) {
+	public  UserDetails findByName(String name, String setPassword) throws  SQLException, DBException {
+		
 		UserDetails details = null;
 		try {
+			
 			String sql = "select ID, Name, Mobile_Number,Set_Password from user_Info where Name = ? and Set_Password = ?";
-			PreparedStatement pst = con.prepareStatement(sql);
+			 pst = con.prepareStatement(sql);
 			pst.setString(1, name);
 			pst.setString(2, setPassword);
 			ResultSet rs = pst.executeQuery();
-			details = new UserDetails();
 			if (rs.next()) {
+				details = new UserDetails();
 				details = toRow(rs);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new DBException("Unable to Login...");
+		}
+		finally
+		{
+		pst.close();	
 		}
 		return details;
 	}
 
-	public UserDetails findByID(int id) throws SQLException {
+	public UserDetails findByID(int id) throws SQLException, DBException {
 		UserDetails did = null;
 		try {
+			
 			String sql = "select ID, Name, Mobile_Number,Set_Password from user_Info where ID = ?";
-			PreparedStatement pst = con.prepareStatement(sql);
+			 pst = con.prepareStatement(sql);
 			pst.setInt(1, id);
 			ResultSet rs1 = pst.executeQuery();
 
 			if (rs1.next()) {
+				did = new UserDetails();
 				did = toRow1(rs1);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new DBException("Unable to give reference ID...");
+
 		}
+		finally
+		{
+		pst.close();	
+		}
+		
 		return did;
 	}
 

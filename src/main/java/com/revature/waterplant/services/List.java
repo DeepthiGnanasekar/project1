@@ -1,7 +1,10 @@
 package com.revature.waterplant.services;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import com.revature.waterplant.exception.DBException;
 import com.revature.waterplant.dao.ListDao;
 import com.revature.waterplant.dao.ListDaoImp;
 import com.revature.waterplant.model.ListDetails;
@@ -25,7 +28,7 @@ public class List {
 	static double quanty;
 	static int choice;
 
-	static void admin() {
+	 void admin() {
 		System.out.println("Enter Admin Name : ");
 		String aname = scan.next();
 		System.out.println("Enter Admin Password : ");
@@ -46,7 +49,8 @@ public class List {
 					System.out.println("Availabilty Set is done!!!");
 				}
 				if (stock == 2) {
-					List.admin();
+					List a = new List();
+					a.admin();
 				}
 			}
 		} catch (Exception e) {
@@ -54,7 +58,7 @@ public class List {
 		}
 	}
 
-	static void order(UserDetails det) {
+	 void order(UserDetails det) throws SQLException, DBException {
 		System.out.println("Select Order(1)/Reservation(2)/Reserved_Order(3) : ");
 		order = scan.nextInt();
 		if (order == 1) {
@@ -87,8 +91,7 @@ public class List {
 					WaterPlant.welcomePage();
 				}
 				if (Yes == 2) {
-					WaterPlant.welcomePage();
-				}
+					WaterPlant.welcomePage();				}
 			}
 			if ((quantyList <= 0) && (quantyList > 100)) {
 				System.out.println("Please set the order between 0 to 100...!!!");
@@ -196,14 +199,15 @@ public class List {
 						listdao.admin1(list);
 						WaterPlant.welcomePage();
 					}
+					if ((quanty < 50) && (quanty > 100)) {
+						System.out.println("Please order the quantity of cans between 50 to 100 ");
+						WaterPlant.welcomePage();
+					}
 					if (Yes == 2) {
 						WaterPlant.welcomePage();
 					}
 				}
-				if ((quanty < 50) && (quanty > 100)) {
-					System.out.println("Please order the quantity of cans between 50 to 100 ");
-					WaterPlant.welcomePage();
-				}
+				
 			}
 		}
 	}

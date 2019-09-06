@@ -3,6 +3,7 @@ package com.revature.waterplant.services;
 import java.sql.SQLException;
 import java.util.Scanner;
 import com.revature.waterplant.dao.UserDaoImp;
+import com.revature.waterplant.exception.DBException;
 import com.revature.waterplant.dao.UserDao;
 import com.revature.waterplant.model.UserDetails;
 
@@ -11,13 +12,13 @@ public class WaterPlant {
 	static long mob_no;
 	static String setPassword;
 	static Scanner scan = new Scanner(System.in);
-
 	public static void main(String[] args) throws Exception {
-		List.admin();
-		WaterPlant.welcomePage();
+		List a = new List();
+		a.admin();
+		 WaterPlant.welcomePage();
 	}
 
-	static void welcomePage() {
+	 static void welcomePage() throws DBException {
 		System.out.println("\nWelcome to Revature Water Plant Services  ");
 		System.out.println("\n");
 		System.out.println("***********************************************************");
@@ -46,7 +47,7 @@ public class WaterPlant {
 					details.setSet_Password(setPassword);
 					userdao.register(details);
 					System.out.println("\n Registered Successfully!!! ");
-					WaterPlant.welcomePage();
+					 WaterPlant.welcomePage();
 				}
 				if (Submit.equals("Cancel")) {
 					welcomePage();

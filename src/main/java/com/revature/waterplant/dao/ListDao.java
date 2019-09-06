@@ -18,8 +18,9 @@ public class ListDao implements ListDaoImp {
 			int rows = pst.executeUpdate();
 			System.out.println("no of rows inserted:" + rows);
 		} catch (SQLException e) {
-			throw new RuntimeException("This account is already existing!!!...Please enter a valid details...");
+			e.printStackTrace();
 		}
+		
 	}
 
 	public void admin1(ListDetails list) {
@@ -30,7 +31,7 @@ public class ListDao implements ListDaoImp {
 			int rows = pst.executeUpdate();
 			System.out.println("no of rows inserted:" + rows);
 		} catch (SQLException e) {
-			throw new RuntimeException("This account is already existing!!!...Please enter a valid details...");
+			e.printStackTrace();
 		}
 	}
 
