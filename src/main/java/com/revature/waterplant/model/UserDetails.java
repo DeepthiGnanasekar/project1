@@ -3,12 +3,12 @@ package com.revature.waterplant.model;
 public class UserDetails {
 	private int id;
 	private String name;
-	private long mob_no;
+	private long mobileNumber;
 	private String setPassword;
 
 	@Override
 	public String toString() {
-		return "UserDetails [id=" + id + ",name=" + name + ", mob_no=" + mob_no + ", setPassword=" + setPassword + "]";
+		return "UserDetails [id=" + id + ",name=" + name + ", mobileNumber=" + mobileNumber + ", setPassword=" + setPassword + "]";
 	}
 
 	public int getID() {
@@ -27,12 +27,13 @@ public class UserDetails {
 		this.name = name;
 	}
 
-	public long getMobile_number() {
-		return mob_no;
+	
+	public long getMobileNumber() {
+		return mobileNumber;
 	}
 
-	public void setMobile_number(long mob_no) {
-		this.mob_no = mob_no;
+	public void setMobileNumber(long mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 
 	public String getSet_Password() {

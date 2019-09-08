@@ -1,19 +1,21 @@
 package com.revature.waterplant.model;
 
-public class ListDetails {
-	private double Set_List;
+public class Details {
+	
+	private double availability_List;
 	private double quantyList;
 	private double reservedList;
 	private double reservedOrder;
 	private double quanty;
 	private String status;
 
-	public double getSet_List() {
-		return Set_List;
+	
+	public double getAvailability_List() {
+		return availability_List;
 	}
 
-	public void setSet_List(double set_List) {
-		Set_List = set_List;
+	public void setAvailability_List(double availability_List) {
+		this.availability_List = availability_List;
 	}
 
 	public double getQuantyList() {

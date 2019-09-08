@@ -4,8 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.revature.waterplant.model.UserDetails;
+import com.revature.waterplant.util.ConnectionUtil;
 import com.revature.waterplant.exception.DBException;
-import com.revature.waterplant.jdbc.ConnectionUtil;
 
 public class UserDao implements UserDaoImp {
 	Connection con = ConnectionUtil.getConnection();
@@ -19,7 +19,7 @@ public class UserDao implements UserDaoImp {
 			String sql = "insert into user_Info(Name,Mobile_Number,Set_Password) values (?,?,?)";
 			 pst = con.prepareStatement(sql);
 			pst.setString(1, user.getName());
-			pst.setLong(2, user.getMobile_number());
+			pst.setLong(2, user.getMobileNumber());
 			pst.setString(3, user.getSet_Password());
 			int rows = pst.executeUpdate();
 			System.out.println("no of rows inserted:" + rows);
@@ -49,8 +49,7 @@ public class UserDao implements UserDaoImp {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DBException("Unable to Login...");
+			throw new DBException("Invalid Credentials...!!!",e);
 		}
 		finally
 		{
@@ -74,8 +73,7 @@ public class UserDao implements UserDaoImp {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DBException("Unable to give reference ID...");
+			throw new DBException("Unable to give reference ID...",e);
 
 		}
 		finally
@@ -94,7 +92,7 @@ public class UserDao implements UserDaoImp {
 		UserDetails user = new UserDetails();
 		user.setID(id);
 		user.setName(name);
-		user.setMobile_number(mob_no);
+		user.setMobileNumber(mob_no);
 		user.setSet_Password(setPassword);
 		return user;
 	}
@@ -107,7 +105,7 @@ public class UserDao implements UserDaoImp {
 		UserDetails user = new UserDetails();
 		user.setID(id);
 		user.setName(name);
-		user.setMobile_number(mob_no);
+		user.setMobileNumber(mob_no);
 		user.setSet_Password(setPassword);
 		return user;
 	}

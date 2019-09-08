@@ -8,21 +8,39 @@ import com.revature.waterplant.model.UserDetails;
 
 public class Login {
 	static Scanner scan = new Scanner(System.in);
-
-	public static void login(String name, String setPassword) throws SQLException, DBException {
+/** This method is to check the user details which is in database  
+ * @throws DBException 
+ * @throws SQLException **/
+	public static void login(String name, String setPassword) throws DBException, SQLException {
 		UserDetails details = new UserDetails();
 		UserDaoImp userdao = new UserDao();
-		details = userdao.findByName(name, setPassword);
-		String Name = details.getName();
-		String SetPassword = details.getSet_Password();
-		if (name.equals(Name) && setPassword.equals(SetPassword)) {
-			System.out.println("Logged_IN Succesfully!!! ");
-			System.out.println("\n Welcome : " + details.getName());
-			UserDetails obj = new UserDetails();
-			obj.setID(details.getID());
-			List o = new List();
-			o.order(obj);
+		try {
+			details = userdao.findByName(name, setPassword);
+			if (details == null) {
+				System.out.println("Invalid Crendentials...!!! Please try again...!!!");
+				WaterPlant.welcomePage();
+			}
+			String newName = details.getName();
+			String password = details.getSet_Password();
+			if (name.equals(newName) && setPassword.equals(password)) {
+				System.out.println("Logged_IN Succesfully!!! ");
+				System.out.println("\n Welcome : " + details.getName());
+				UserDetails userd = new UserDetails();
+				userd.setID(details.getID());
+				Water o = new Water();
+				o.order(userd);
+				}
+			else {
+				System.out.println("Invalid Crendentials...!!!");
+				WaterPlant.welcomePage();
+			}
+
+	} catch (DBException e) {
+		throw new DBException("Invalid crendentials...",e);	
 		}
+		
+		}
+		
 	}
 
-}
+
