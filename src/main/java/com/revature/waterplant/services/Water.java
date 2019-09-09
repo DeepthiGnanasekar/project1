@@ -11,7 +11,7 @@ import com.revature.waterplant.model.UserDetails;
 import com.revature.waterplant.util.ConnectionUtil;
 
 public class Water {
-	static Details ref = new Details();
+	static Details reference = new Details();
 	static WaterDaoImp waterdao = new WaterDao();
 	static Connection con = ConnectionUtil.getConnection();
 	static Scanner scan = new Scanner(System.in);
@@ -21,7 +21,7 @@ public class Water {
 	static int order = 0;
 	static int referenceid;
 	static int id = 3110;
-	static int availability_List;
+	static int availability;
 	static int reservedList;
 	static int quantyList;
 	static int quanty;
@@ -62,10 +62,10 @@ public class Water {
 				int stock = 500;
 				System.out.println("Avalibility stocks : " + stock + " " + "Units");
 				System.out.println("\nSet the Availability Quantity of Cans : ");
-				availability_List = scan.nextInt();
-				System.out.println("Set the Availability Quantity of Cans : " + availability_List + " " + "Units");
-				ref.setAvailability_List(availability_List);
-				waterdao.admin(ref);
+				availability = scan.nextInt();
+				System.out.println("Set the Availability Quantity of Cans : " + availability + " " + "Units");
+				reference.setAvailability_List(availability);
+				waterdao.admin(reference);
 				System.out.println("Availabilty Set is done!!!");
 			} else if (stock == 2) {
 				Water a = new Water();
@@ -84,35 +84,34 @@ public class Water {
 
 	/* This method is for user, the user can able to order/reserve/reserve_order the cans*/
 	void order(UserDetails det) throws SQLException, DBException {
-		System.out.println("Select Order(1)/Reservation(2)/Reserved_Order(3) : ");
+		System.out.println("Select Order(1)/Reservation(2)/Reserved Order(3)/Cancel Order(4): ");
 		System.out.println("Enter your choice :");
 		order = checkInput();
 		if (order == 1) {
 			System.out.println("**************************************************************************************");
-			System.out.println("  Availablity List of Quantity of WaterCans : " + availability_List + " " + "Units");
+			System.out.println("  Availablity List of Quantity of WaterCans : " + availability + " " + "Units");
 			System.out.println("**************************************************************************************");
 			System.out.println("Set the order quantity of Cans : ");
 			quantyList = scan.nextInt();
 			if ((quantyList > 0) && (quantyList <= 100)) {
-				System.out.println("Are you sure you want to order only this much quantity of Water Cans : "
-						+ quantyList + " " + "Units" + " " + " then select Yes(1) / No(2)");
+				System.out.println("Are you sure you want to order only this much quantity of Water Cans : "+ quantyList + " " + "Units" + " " + " then select Yes(1) / No(2)");
 				System.out.println("Enter your choice :");
 				yes = checkInput();
 				if (yes == 1) {
-					ref.setQuantyList(quantyList);
-					waterdao.quantity(ref);
+					reference.setQuantyList(quantyList);
+					waterdao.quantity(reference);
 					System.out.println("Your Order has been Confirmed... Thankyou for Ordering with us!!!");
 					System.out.println(" your WaterCan unique code is : " + id);
 					System.out.println("And your reference id is : " + det.getID());
 					status = "Ordered";
-					ref.setStatus(status);
-					waterdao.status(ref);
-					availability_List = availability_List - quantyList;
+					reference.setStatus(status);
+					waterdao.status(reference);
+					availability = availability - quantyList;
 					System.out.println("**************************************************************************************");
-							System.out.println("  Availablity List of Quantity of WaterCans : " + availability_List + " " + "Units");
+							System.out.println("  Availablity List of Quantity of WaterCans : " + availability + " " + "Units");
 							System.out.println("**************************************************************************************");
-					ref.setAvailability_List(availability_List);
-					waterdao.admin1(ref);
+					reference.setAvailability_List(availability);
+					waterdao.admin1(reference);
 					WaterPlant.welcomePage();
 				} else if (yes == 2) {
 					WaterPlant.welcomePage();
@@ -128,30 +127,29 @@ public class Water {
 		} else if (order == 2) {
 			
 			System.out.println("**************************************************************************************");
-			System.out.println("  Availablity List of Quantity of WaterCans : " + availability_List + " " + "Units");
+			System.out.println("  Availablity List of Quantity of WaterCans : " + availability + " " + "Units");
 			System.out.println("**************************************************************************************");
 			System.out.println("Set the resevered quantity of Cans : ");
-			System.out.println("Enter your choice :");
 			reservedList = scan.nextInt();
 			if ((reservedList > 0) && (reservedList <= 100)) {
 				System.out.println("Are you sure you want to order only this much quantity of Water Cans : "+ reservedList + " " + "Units" + " " + " then select Yes(1) / No(2)");
 				System.out.println("Enter your choice :");
 				int Yes = checkInput();
 				if (Yes == 1) {
-					ref.setReservedList(reservedList);
-					waterdao.reserve(ref);
+					reference.setReservedList(reservedList);
+					waterdao.reserve(reference);
 					System.out.println("Your reservation has been Confirmed...!!!");
 					System.out.println(" your WaterCan unique code is : " + id);
 					System.out.println("And your reference id is : " + det.getID());
 					status = "Reserved...Order pending";
-					ref.setStatus(status);
-					waterdao.status(ref);
-					availability_List = availability_List - reservedList;
+					reference.setStatus(status);
+					waterdao.status(reference);
+					availability = availability - reservedList;
 							System.out.println("**************************************************************************************");
-							System.out.println("  Availablity List of Quantity of WaterCans : " + availability_List + " " + "Units");
+							System.out.println("  Availablity List of Quantity of WaterCans : " + availability + " " + "Units");
 							System.out.println("**************************************************************************************");
-					ref.setAvailability_List(availability_List);
-					waterdao.admin1(ref);
+					reference.setAvailability_List(availability);
+					waterdao.admin1(reference);
 					WaterPlant.welcomePage();
 				}
 				else if (Yes == 2) {
@@ -171,7 +169,7 @@ public class Water {
 			System.out.println("Enter your reference ID : ");
 			referenceid = scan.nextInt();
 			System.out.println("**************************************************************************************");
-			System.out.println("  Availablity List of Quantity of WaterCans : " + availability_List + " " + "Units");
+			System.out.println("  Availablity List of Quantity of WaterCans : " + availability + " " + "Units");
 			System.out.println("**************************************************************************************");
 			System.out.println("Your Reference ID is : " + referenceid);
 			System.out.println("Your reserved quantity of water cans is : " + reservedList);
@@ -180,20 +178,20 @@ public class Water {
 			choice = checkInput();
 			if (choice == 1) {
 				reservedOrderList = reservedList;
-				ref.setReservedOrder(reservedOrderList);
-				waterdao.reserve1(ref);
+				reference.setReservedOrder(reservedOrderList);
+				waterdao.reserve1(reference);
 				reservedList = 0;
-				ref.setReservedList(reservedList);
-				waterdao.reserveu(ref);
+				reference.setReservedList(reservedList);
+				waterdao.reserveu(reference);
 				System.out.println("Your Order has been Confirmed... Thankyou for Ordering with us!!!");
 				System.out.println(" your WaterCan unique code is : " + id);
 				System.out.println("And your reference_order id is : " + det.getID());
 				System.out.println("**************************************************************************************");
-				System.out.println("  Availablity List of Quantity of WaterCans : " + availability_List + " " + "Units");
+				System.out.println("  Availablity List of Quantity of WaterCans : " + availability + " " + "Units");
 				System.out.println("**************************************************************************************");
 				status = "ordered";
-				ref.setStatus(status);
-				waterdao.status(ref);
+				reference.setStatus(status);
+				waterdao.status(reference);
 				WaterPlant.welcomePage();
 			}
 			else if (choice == 2) {
@@ -207,24 +205,24 @@ public class Water {
 					System.out.println("Enter your choice :"); 
 					yes = checkInput();
 					if (yes == 1) {
-						ref.setReservedOrder(quanty);
-						waterdao.reserve1(ref);
+						reference.setReservedOrder(quanty);
+						waterdao.reserve1(reference);
 						System.out.println("Your reservedOrder has been Confirmed...!!!");
 						System.out.println(" your WaterCan unique code is : " + id);
 						System.out.println("And your reference id is : " + det.getID());
 						reservedList = 0;
-						ref.setReservedList(reservedList);
-						waterdao.reserveu(ref);
+						reference.setReservedList(reservedList);
+						waterdao.reserveu(reference);
 						status = "ordered";
-						ref.setStatus(status);
-						waterdao.status(ref);
+						reference.setStatus(status);
+						waterdao.status(reference);
 						quanty = reservedList - quanty;
-						availability_List = availability_List + quanty;
+						availability = availability + quanty;
 						System.out.println("**************************************************************************************");
-					    System.out.println(	"  Availablity List of Quantity of WaterCans : " + availability_List + " " + "Units");
+					    System.out.println(	"  Availablity List of Quantity of WaterCans : " + availability + " " + "Units");
 						System.out.println(	"**************************************************************************************");
-						ref.setAvailability_List(availability_List);
-						waterdao.admin1(ref);
+						reference.setAvailability_List(availability);
+						waterdao.admin1(reference);
 						WaterPlant.welcomePage();}
 						else if (yes == 2) {
 							WaterPlant.welcomePage();
@@ -240,12 +238,37 @@ public class Water {
 				}
 			}
 		}
+		else if (order == 4) {
+			System.out.println("Do you want to cancel the order for sure if Yes(1)/No(2)");
+			System.out.println("Enter your choice :"); 
+			yes = checkInput();
+			if (yes == 1) {
+				System.out.println("Your order has been cancelled successfully...!!!");
+				availability = availability + quantyList;
+				reference.setAvailability_List(availability);
+				waterdao.admin1(reference);
+				status = "Order Cancelled";
+				reference.setStatus(status);
+				waterdao.status(reference);
+				WaterPlant.welcomePage();
+
+			}
+			else if (yes == 2) {
+				WaterPlant.welcomePage();
+			}
+			else {
+				System.out.println("Please enter valid choice...");
+				WaterPlant.welcomePage();
+			}
+		}
 		else {
 			System.out.println("Invalid choice... Please try again...");
 			Water w = new Water();
 			w.order(det);
 		}
-	}
+	
+		}
+	
 }
 	
 	

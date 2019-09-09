@@ -10,6 +10,7 @@ import com.revature.waterplant.exception.DBException;
 import com.revature.waterplant.dao.UserDao;
 import com.revature.waterplant.model.UserDetails;
 
+
 public class WaterPlant {
 	static String name;
 	static long mobileNumber;
@@ -40,9 +41,11 @@ public class WaterPlant {
 		}
 		return choice;
 	}
+	
+	
 /*This method is used for the user registration or user login purpose*/
 	
-	 static void welcomePage() throws DBException {
+	 public static void welcomePage() throws DBException {
 		System.out.println("\nWelcome to Revature Water Plant Services  ");
 		System.out.println("\n");
 		System.out.println("***********************************************************");
@@ -64,6 +67,7 @@ public class WaterPlant {
 				System.out.println("Click Submit/Cancel");
 				String Submit = scan.next();
 				if (Submit.equals("Submit")) {
+				  
 					UserDetails details = new UserDetails();
 					UserDaoImp userdao = new UserDao();
 					details.setName(name);

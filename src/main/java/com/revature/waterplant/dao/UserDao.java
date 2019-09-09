@@ -62,7 +62,7 @@ public class UserDao implements UserDaoImp {
 		UserDetails did = null;
 		try {
 			
-			String sql = "select ID, Name, Mobile_Number,Set_Password from user_Info where ID = ?";
+			String sql = "select ID, Name, Mobile_Number,Set_Password from quantity_List where ID = ?";
 			 pst = con.prepareStatement(sql);
 			pst.setInt(1, id);
 			ResultSet rs1 = pst.executeQuery();

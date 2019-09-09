@@ -52,9 +52,7 @@ public class TestUserDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
-		
-		
+			    
 	}
 
 }
